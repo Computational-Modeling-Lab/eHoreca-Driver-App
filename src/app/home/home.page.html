@@ -1,0 +1,45 @@
+<ion-content [fullscreen]="true">
+
+  <div class="box">
+    <div class="map-wrapper">
+      <div #map id="map"></div>
+    </div>
+
+    <div class="buttons">
+      <ion-button 
+        (click)="binPickup()" 
+        expand="block" 
+        size="large" 
+        color="success"
+        class="capitalize ion-text-wrap"
+      >
+        {{ 'PAGES.HOME.BINPICKUP' | translate }}
+      </ion-button>
+      <ion-button 
+        (click)="endRoute()" 
+        expand="block" 
+        size="large" 
+        color="danger"
+        class="capitalize ion-text-wrap"
+      >
+        {{ 'PAGES.HOME.ENDROUTE' | translate }}
+      </ion-button>
+      <ion-button 
+        (click)="switchLightDarkMode()" 
+        expand="block" 
+        size="large" 
+        
+        class="capitalize ion-text-wrap theme-mode-button"
+      >
+        <span *ngIf="switchToMode === 'dark'">
+          {{'PAGES.HOME.DARKTHEMEMODE' | translate }}
+        </span>
+        <span *ngIf="switchToMode === 'light'">
+          {{'PAGES.HOME.LIGHTTHEMEMODE' | translate }}
+        </span>
+      </ion-button>
+      
+    </div>
+  </div>
+
+</ion-content>

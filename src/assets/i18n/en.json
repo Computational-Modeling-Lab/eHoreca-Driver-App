@@ -1,0 +1,63 @@
+{
+  "PAGES": {
+    "HOME": {
+      "BINPICKUP": "Bin Pickup",
+      "ENDROUTE":"End Route",
+      "SWITCHMAPMODE":"Switch map to",
+      "DARKTHEMEMODE":"dark theme",
+      "LIGHTTHEMEMODE":"light theme",
+      "ERRORONROUTE":"There was an error initiating your route. Please ensure you have internet connection and GPS and try again!",
+      "LOADINGROUTE":"Loading Route",
+      "UPLOADINGRESULTS":"Uploading Results",
+      "SUCCESSROUTE":"The route was concluded successfully",
+      "ERRORUPLOADROUTE":"There was an error uploading your route report!",
+      "NOBINSPICKED":"No bins have been collected. The route will be ignored. Are you sure?"
+    },
+    "LOGIN": {
+      "SUBMIT": "Submit",
+      "PLATE":"Vehicle plate",
+      "INVALIDPLATE":"Please enter a valid vehicle plate",
+      "PLATEINFO":"There was a problem getting the vehicle info!",
+      "NOVEHICLE":"Could not find a vehicle with those plates!",
+      "ROUTEINFO":"There was a problem getting the route info!",
+      "NOROUTES":"No routes available for chosen vehicle!",
+      "INFOPROBLEM":"There was a problem getting the info!",
+      "NOINTERNET":"Please make sure you are connected to the internet and try again!",
+      "UNSENTROUTE":"A previous unsent route exists in storage"
+    },
+    "BINREPORT": {
+      "BINTYPES":{
+        "COMPOST":"compost",
+        "GLASS":"glass",
+        "RECYCLABLE":"recyclable",
+        "MIXED":"mixed",
+        "METAL":"metal",
+        "PAPER":"paper",
+        "PLASTIC":"plastic"
+      },
+      "BINTYPE":" Bin type",
+      "BINQUANTITY":"Bin quantity",
+      "BINPERCENTAGES":"Bin percentages",
+      "BIN":"Bin",
+      "TOOFARAWAY":"Too far away",
+      "TOOFARAWAYERROR":"You are too far away from your next bin. Please get closer to it!"
+    }
+  },
+  "SERVICES": {
+    "NOINTERNET":"No internet connection found. Storing data for when internet becomes available",
+    "SENDSTORED":"Sending stored data"
+  },
+  "COMMON": {
+    "GETTINGDATA":"Getting data",
+    "PLEASEWAIT":"Please wait",
+    "ERROR":"Error",
+    "BACK":"Back",
+    "SUCCESS":"Success",
+    "DISMISS":"Dismiss",
+    "LOADING":"Loading",
+    "CONFIRM":"Confirm",
+    "CANCEL":"Cancel",
+    "WARNING":"Warning",
+    "SEND":"Send"
+  }
+}

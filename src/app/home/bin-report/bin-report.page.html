@@ -1,0 +1,34 @@
+<ion-content>
+  <div class="content">
+    <div class="type">
+      <h2>{{ 'PAGES.BINREPORT.BINTYPE' | translate }}</h2>
+      <ion-button (click)="showActionSheet('type')" class="capitalize">
+        {{'PAGES.BINREPORT.BINTYPES.' + selectedType.toUpperCase() | translate}}
+      </ion-button>
+    </div>
+    
+    <div class="quantity">
+      <h2>{{ 'PAGES.BINREPORT.BINQUANTITY' | translate }}</h2>
+      <div class="controls">
+        <ion-button expand="block" (click)="changedQuantity('minus')" [disabled]="numberOfBins === 1">-</ion-button>
+        <h3>{{numberOfBins}}</h3>
+        <ion-button expand="block" (click)="changedQuantity('plus')">+</ion-button>
+      </div>
+    </div>
+    
+    <div class="percentages">
+      <h2>{{ 'PAGES.BINREPORT.BINPERCENTAGES' | translate }}</h2>
+      <div class="percents">
+        <div class="percent" *ngFor="let bin of binsCollection; let idx = index">
+          <h2>{{ 'PAGES.BINREPORT.BIN' | translate }} {{bin}}</h2>
+          <ion-button (click)="showActionSheet('percent', idx)">{{binPercents[idx]}}%</ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <ion-button (click)="confirm()" expand="block" size="large" color="success" class="capitalize">{{ 'COMMON.CONFIRM' | translate }}</ion-button>
+    <ion-button (click)="dismiss()" expand="block" size="large" color="danger" class="capitalize">{{ 'COMMON.CANCEL' | translate }}</ion-button>
+  </div>
+</ion-content>

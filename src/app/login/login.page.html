@@ -1,0 +1,68 @@
+<ion-content [fullscreen]="true">
+  <div class="language-selection large-font">
+    <ion-select #language [value]="selectedLanguage" class="capitalize" (ionChange)="setLanguage(language.value)">
+      <ion-select-option 
+        *ngFor="let language of constants.languages" 
+        [value]="language.value"
+        class="capitalize"
+      >
+        {{language.name}}
+      </ion-select-option>
+    </ion-select>
+  </div>
+
+
+  <div class="container">
+    <div class="center">
+      <div *ngIf="sendSvc.storeRouteExists">
+        <ion-label>{{ 'PAGES.LOGIN.UNSENTROUTE' | translate }} </ion-label>
+
+        <ion-button 
+          (click)="sendSvc.sendStoredRoute()" 
+          size="large" 
+          class="capitalize"
+        >
+          {{ 'COMMON.SEND' | translate }}
+        </ion-button>
+      </div>
+
+      <div *ngIf="!sendSvc.storeRouteExists">
+        <label for="plate">{{ 'PAGES.LOGIN.PLATE' | translate }}: </label>
+        <input id="plate" type="text" placeholder="{{ 'PAGES.LOGIN.PLATE' | translate }}" maxlength="7" [(ngModel)]="plate" />
+  
+        <!-- Errors -->
+        <p *ngIf="invalidPlate">
+          {{ 'PAGES.LOGIN.INVALIDPLATE' | translate }}
+        </p>
+        <p *ngIf="vehicleError">
+          {{ 'PAGES.LOGIN.PLATEINFO' | translate }}
+        </p>
+        <p *ngIf="noVehicleError">
+          {{ 'PAGES.LOGIN.NOVEHICLE' | translate }}
+        </p>
+        <p *ngIf="routeError">
+          {{ 'PAGES.LOGIN.ROUTEINFO' | translate }}
+        </p>
+        <p *ngIf="noRouteError">
+          {{ 'PAGES.LOGIN.NOROUTES' | translate }}
+        </p>
+        <p *ngIf="otherError" style="font-size: 2em !important;">
+          {{ 'PAGES.LOGIN.INFOPROBLEM' | translate }}
+          <br>
+          {{ 'PAGES.LOGIN.NOINTERNET' | translate }}
+        </p>
+        
+        <ion-button 
+          (click)="getVehicle()" 
+          size="large" 
+          [disabled]="plate.length < 7 ? true: false"
+          class="capitalize"
+        >
+          {{ 'PAGES.LOGIN.SUBMIT' | translate }}
+        </ion-button>
+      </div>
+    </div>
+
+  </div>
+
+</ion-content>

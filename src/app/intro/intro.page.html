@@ -1,0 +1,15 @@
+<ion-content class="ion-padding h-100">
+  <div class="button-container">
+    <div *ngFor="let language of constants.languages">
+      <ion-button 
+        size=large 
+        class="capitalize large-font"
+        (click)="setLanguage(language.value)"
+      >
+        {{language.name}}
+      </ion-button>
+    </div>
+
+  </div>
+
+</ion-content>

@@ -1,0 +1,18 @@
+{
+  "appId": "gr.cmodlab.eHoreca_Driver_App",
+  "appName": "e-Horeca Driver App",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 1000,
+      "launchAutoHide": true,
+      "backgroundColor": "#ffffffff",
+      "androidSplashResourceName": "splash",
+      "androidScaleType": "CENTER_INSIDE"
+    }
+  },
+  "cordova": {},
+  "linuxAndroidStudioPath": "/usr/bin/android-studio-canary"
+}
