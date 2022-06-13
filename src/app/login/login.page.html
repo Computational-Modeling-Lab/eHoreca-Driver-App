@@ -28,30 +28,14 @@
 
       <div *ngIf="!sendSvc.storeRouteExists">
         <label for="plate">{{ 'PAGES.LOGIN.PLATE' | translate }}: </label>
-        <input id="plate" type="text" placeholder="{{ 'PAGES.LOGIN.PLATE' | translate }}" maxlength="7" [(ngModel)]="plate" />
-  
-        <!-- Errors -->
-        <p *ngIf="invalidPlate">
-          {{ 'PAGES.LOGIN.INVALIDPLATE' | translate }}
-        </p>
-        <p *ngIf="vehicleError">
-          {{ 'PAGES.LOGIN.PLATEINFO' | translate }}
-        </p>
-        <p *ngIf="noVehicleError">
-          {{ 'PAGES.LOGIN.NOVEHICLE' | translate }}
-        </p>
-        <p *ngIf="routeError">
-          {{ 'PAGES.LOGIN.ROUTEINFO' | translate }}
-        </p>
-        <p *ngIf="noRouteError">
-          {{ 'PAGES.LOGIN.NOROUTES' | translate }}
-        </p>
-        <p *ngIf="otherError" style="font-size: 2em !important;">
-          {{ 'PAGES.LOGIN.INFOPROBLEM' | translate }}
-          <br>
-          {{ 'PAGES.LOGIN.NOINTERNET' | translate }}
-        </p>
-        
+        <input 
+          id="plate" 
+          type="text" 
+          placeholder="{{ 'PAGES.LOGIN.PLATE' | translate }}" 
+          maxlength="7" 
+          [(ngModel)]="plate" 
+        />
+          
         <ion-button 
           (click)="getVehicle()" 
           size="large" 

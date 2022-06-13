@@ -93,26 +93,23 @@ export class HomePage implements OnInit, OnDestroy {
       loading = await this.initRoute();
       await this.loadMap();
       await loading.dismiss();
-      // this.watchPositionSub =  this.geolocation.watchPosition({ enableHighAccuracy: true, timeout: 5000 }).subscribe(
-      //   (data) => this.updatePosition(data)
-      // )
       await this.insomnia.keepAwake();
       this.bgGeolocation();
     } catch (error) {
       await loading.dismiss();
-      const alert = await this.alertctrl.create(
-        {
-          header: `${this.translate.instant('COMMON.ERROR')}!`,
-          message: `${this.translate.instant('PAGES.HOME.ERRORONROUTE')}`,
-          buttons: [
-            {
-              text: `${this.translate.instant('COMMON.BACK')}`,
-              handler: () => { this.router.navigate(['/']); }
-            }
-          ]
-        }
-      )
-      alert.present();
+      // const alert = await this.alertctrl.create(
+      //   {
+      //     header: `${this.translate.instant('COMMON.ERROR')}!`,
+      //     message: `${this.translate.instant('PAGES.HOME.ERRORONROUTE')}`,
+      //     buttons: [
+      //       {
+      //         text: `${this.translate.instant('COMMON.BACK')}`,
+      //         handler: () => { this.router.navigate(['/']); }
+      //       }
+      //     ]
+      //   }
+      // )
+      // alert.present();
     }
   }
 

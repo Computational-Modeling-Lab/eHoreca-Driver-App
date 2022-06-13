@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { LoadingController } from '@ionic/angular';
+import { AlertController, LoadingController } from '@ionic/angular';
 
 import { ConstantsService } from '../services/constants/constants.service';
 
@@ -9,7 +9,6 @@ import { Storage } from '@capacitor/storage';
 import { Network } from '@capacitor/network';
 import { TranslateService } from '@ngx-translate/core';
 import { InfoSendService } from '../services/info-send.service';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -20,13 +19,6 @@ export class LoginPage implements OnInit {
   plate: string = "";
   vehicle: any;
   route: any;
-  plateRegEx: RegExp;
-  invalidPlate: boolean = false;
-  vehicleError: boolean = false;
-  noVehicleError: boolean = false;
-  routeError: boolean = false;
-  noRouteError: boolean = false;
-  otherError: boolean = false;
   selectedLanguage: string;
 
   constructor(
@@ -35,20 +27,34 @@ export class LoginPage implements OnInit {
     private loadingctrl: LoadingController,
     private router: Router,
     public translate: TranslateService,
-    public sendSvc: InfoSendService
+    public sendSvc: InfoSendService,
+    private alertcontroller: AlertController,
   ) {
-    this.plateRegEx = new RegExp(/[A-ZΑ-Ω]{3}[0-9]{4}/gi);
     this.url = this.constants.apiURL;
   }
 
-  async getVehicle() {
-    this.invalidPlate = false;
-    this.vehicleError = false;
-    this.noVehicleError = false;
-    this.routeError = false;
-    this.noRouteError = false;
-    this.otherError = false;
+  // Present an alert with options to the user.
+  async presentAlert(
+    header: string,
+    message: string,
+    buttons = [
+      { text: 'Ok', handler: () => { } }
+    ]
+  ): Promise<void> { 
+    const alert = await this.alertcontroller.create({
+      header,
+      message,
+      backdropDismiss: false,
+      buttons,
+    });
+    await alert.present();
+  }
 
+  sanitizePlate(plate: string): boolean { 
+    return new RegExp(/[A-ZΑ-Ω]{3}[0-9]{4}/gi).test(plate);
+  }
+
+  async getVehicle() {
     const plate = this.plate.toUpperCase();
 
     const loading = await this.loadingctrl.create(
@@ -56,8 +62,11 @@ export class LoginPage implements OnInit {
     );
     await loading.present();
 
-    if (!this.plateRegEx.test(plate)) {
-      this.invalidPlate = true;
+    if (!this.sanitizePlate(plate)) {
+      await this.presentAlert(
+        this.translate.instant('COMMON.ERROR'),
+        this.translate.instant('PAGES.LOGIN.INVALIDPLATE')
+      );
       this.plate = "";
       await loading.dismiss();
       return;
@@ -65,7 +74,10 @@ export class LoginPage implements OnInit {
 
     const networkStatus = await Network.getStatus();
     if (!networkStatus.connected) {
-      this.otherError = true;
+      await this.presentAlert(
+        this.translate.instant('PAGES.LOGIN.INFOPROBLEM'),
+        this.translate.instant('PAGES.LOGIN.NOINTERNET')
+      );
       this.plate = "";
       await loading.dismiss();
       return;
@@ -78,12 +90,19 @@ export class LoginPage implements OnInit {
           this.getRoute(loading);
         },
         async err => {
+          this.plate = "";
           if (err.error.message === "Vehicle id not found")
-            this.noVehicleError = true;
+            await this.presentAlert(
+              this.translate.instant('COMMON.ERROR'),
+              this.translate.instant('PAGES.LOGIN.NOVEHICLE')
+            );
           else
-            this.vehicleError = true;
+          await this.presentAlert(
+            this.translate.instant('COMMON.ERROR'),
+            this.translate.instant('PAGES.LOGIN.PLATEINFO')
+          );
           await loading.dismiss();
-          console.error(JSON.stringify(err));
+          console.error(err);
         }
       );
   }
@@ -93,15 +112,21 @@ export class LoginPage implements OnInit {
       .subscribe(
         async data => {
           this.route = data.data;
+          console.log('this.route:', this.route);
           await loading.dismiss();
           this.continue();
         },
         async err => {
           if (err.error.message === "Vehicle has no route")
-            this.noRouteError = true;
+            await this.presentAlert(
+              this.translate.instant('COMMON.ERROR'),
+              this.translate.instant('PAGES.LOGIN.NOROUTES')
+            );
           else
-            this.routeError = true;
-
+            await this.presentAlert(
+              this.translate.instant('COMMON.ERROR'),
+              this.translate.instant('PAGES.LOGIN.ROUTEINFO')
+            );
           console.error(JSON.stringify(err));
           await loading.dismiss();
         }
@@ -122,7 +147,6 @@ export class LoginPage implements OnInit {
 
 
   async ngOnInit (): Promise<void> {
-    console.log('ngOnInit:');
     this.selectedLanguage = await (await Storage.get({ key: "language" })).value;
     if (this.selectedLanguage) this.translate.use(this.selectedLanguage);
   }

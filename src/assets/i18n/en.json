@@ -36,8 +36,8 @@
         "PLASTIC":"plastic"
       },
       "BINTYPE":" Bin type",
-      "BINQUANTITY":"Bin quantity",
-      "BINPERCENTAGES":"Bin percentages",
+      "BINQUANTITY":"Number of bins",
+      "BINPERCENTAGES":"Bin fullness",
       "BIN":"Bin",
       "TOOFARAWAY":"Too far away",
       "TOOFARAWAYERROR":"You are too far away from your next bin. Please get closer to it!"
